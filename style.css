@@ -1,0 +1,21 @@
+#instructions {
+font: x-large; font-size: larger;
+
+}
+
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
+
+#search_locations {
+    column-gap: normal;
+
+}
