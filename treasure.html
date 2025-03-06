@@ -27,7 +27,7 @@
     <div id="score">
         Score is zero.
     </div>
-    <div>
+    <div onclick="help()">
         Click for help
     </div>
     <div id="help">
@@ -88,7 +88,7 @@
         let goldLocation = 15;
         let snakeLocation = 20;
         let gameOver = false;
-        let ids = ["01", "02", "03", "04", "05", "06", "07", 
+                let ids = ["01", "02", "03", "04", "05", "06", "07", 
                     "08", "09", "10", "11", "12", "13", "14", 
                     "15", "16", "17", "18", "19", "20", "21", 
                     "22", "23", "24", "25", "26", "27", "28", 
@@ -97,7 +97,7 @@
         function CheckPosition(position) 
         {
             if (gameOver) 
-            
+
             {
                 return;                
             }
@@ -126,33 +126,45 @@
             {
                 imgElement.src = "cactus-158506_1280.png";
                 locationsVisited++;
-
             }
-
-            
         }
 
+        function help()
+        {
+            if (lastCheck === null)
+            {
+                document.getElementById("help").innerText = "wind";
+                return "wind";                    
+            }
+
+            let closestLocations = [(lastCheck - 1 + 35) % 35,
+                                    (lastCheck + 1) % 35,
+                                    (lastCheck - 7 + 35) % 35,
+                                    (lastCheck + 7) % 35];
+            
+            for (let loc of closestLocations)
+            {
+                if (silverLocations.includes(loc))
+                {
+                    document.getElementById("help").innerText = "clink";
+                    return "clink";
+                }
+            }
+
+            let lastRow = Math.floor(lastCheck / 7);
+            let lastColumn = lastCheck % 5;
+            let snakeRow = Math.floor(snakeLocation / 7);
+            let snakeColumn = snakeLocation % 5;
+
+            if (Math.abs(lastRow - snakeRow) <= 1 && Math.abs(lastColumn - snakeColumn) <= 1)
+            {
+                document.getElementById("help").innerText = "rattle";
+                return "rattle";
+            }
+
+            document.getElementById("help").innerText = "wind";
+            return "wind";
+        }
     </script>
-
-<!--   <div class="container-fluid">
-    <h1>Responsive Columns</h1>
-    <p>Resize the browser window to see the effect.</p>
-    <p>The columns will automatically stack on top of each other when the screen is less than 576px wide.</p>
-    <div class="row">
-      <div class="col-sm-2" style="background-color:lavender;">.col-sm-2 this will span 2 columns and is contained inside a div element</div>
-      <div class="col-md-3" style="background-color:lavenderblush;">.col-md-3</div>
-      <div class="col-sm-2" style="background-color:lavender;">.col-sm-3</div>
-      <div class="col-sm-5" style="background-color:lavenderblush;">.col-sm-3</div>
-    </div>
-  </div>
-  
-  <div class="container">
-    <button type="button" class="btn btn-success btn-sm">Success in all things is my goal</button>
-    <button type="button" class="btn btn-warning  btn-sm">Warning danger ahead</button>
-    <button type="button" class="btn btn-danger btn-sm">Danger, can still go back</button>
-    <button type="button" class="btn btn-link btn-sm">Link to the secret of life</button>
-    </div>
-
- -->
 </body>
 </html>
