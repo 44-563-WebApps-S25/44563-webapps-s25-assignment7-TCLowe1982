@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html> <head> <style>
+<html>
+<head>
+  <title>Dynamic Div List Creator</title>
+  <style>
     .flex-container {
       display: flex;  flex-direction:row;
       background-color: red;
@@ -12,39 +15,68 @@
 
 /* Responsive layout */
 @media (max-width: 600px) { 
-	 .flex-container{
-		 flex-direction:column;
-		 background-color: green;
-	  }
-	}
-</style></head>
-
-
+     .flex-container{
+         flex-direction:column;
+         background-color: green;
+      }
+    }
+</style>
+</head>
 
 <body>
-		<div class="flex-container" id="target">
-		  <div>row item 1</div>   
-		  <div>row item 2</div>  
-		  <div>row item 3</div>  
-		</div>
-	
-	<p> Press the button to create an new element of type div and then add it to the container.
-		</p>
-		<button onclick="makeNewDiv()">Add one</button>
-	
-	
+    <h1>Thomas Lowe builds list with divs</h1>
+    
+    <div class="flex-container" id="target">
+      <div class="divlist">row item 1</div>   
+      <div class="divlist">row item 2</div>  
+      <div class="divlist">row item 3</div>  
+    </div>
+    
+    <p> Press the button to create an new element of type div and then add it to the container.</p>
+    
+    <input type="text" id="divContent" placeholder="Enter content for new div">
+    <button onclick="makeNewDiv()">Add end</button>
+    <button onclick="addFront()">Add front</button>
+    <button onclick="remove()">Remove</button>
 </body>
-<script>
-	function makeNewDiv(){
-		/* make the div and its text */
-		let element = document.createElement("div")
-		element.innerHTML = "an item after 3"
-		element.style.color = "orange"
 
-		/* add it to the container */
-		let container = document.getElementById('target')
-		container.appendChild(element)
-		
-	}
+<script>
+    function makeNewDiv()
+	{
+        let element = document.createElement("div")        
+        let inputValue = document.getElementById("divContent").value        
+        
+		element.innerHTML = inputValue        
+        element.className = "divlist"        
+        element.style.color = "orange"
+
+        let container = document.getElementById('target')		
+        container.appendChild(element)
+    }
+    
+    function addFront()
+	{
+        let element = document.createElement("div")        
+        let inputValue = document.getElementById("divContent").value
+        
+        element.innerHTML = inputValue        
+        element.className = "divlist"        
+        element.style.color = "orange"
+
+        let container = document.getElementById('target')
+        container.insertBefore(element, container.firstChild)
+    }
+    
+    function remove()
+	{
+        let divListItems = document.getElementsByClassName("divlist")
+        let length = divListItems.length
+        
+        if(length > 0) 
+		{
+            let middleIndex = Math.floor(length / 2)  
+            divListItems[middleIndex].remove()
+        }
+    }
 </script>
-</html>	
+</html>
